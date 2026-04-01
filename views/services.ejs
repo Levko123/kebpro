@@ -20,11 +20,19 @@
       </div>
 
       <div class="product-card-grid reveal-grid">
-        <% categories.forEach((category, index) => { %>
+        <% categories.forEach((category) => { %>
         <article class="product-card panel" data-stagger>
-          <div class="product-placeholder">
-            <span><%= t.services.placeholderLabel %></span>
-            <strong><%= category.title %></strong>
+          <div class="product-image-slot">
+            <img
+              src="/images/products/<%= category.slug %>.jpg"
+              alt="<%= category.title %>"
+              class="product-slot-image"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';"
+            />
+            <div class="product-placeholder product-placeholder-fallback">
+              <span><%= t.services.placeholderLabel %></span>
+              <strong><%= category.title %></strong>
+            </div>
           </div>
           <h3><%= category.title %></h3>
           <p><%= category.cardLead %></p>
