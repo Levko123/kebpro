@@ -1,4 +1,4 @@
-﻿const supportedLanguages = ["hu", "en", "de"];
+const supportedLanguages = ["hu", "en", "de"];
 const defaultLanguage = "hu";
 
 const copy = {
@@ -102,6 +102,19 @@ const grantItems = {
   ],
 };
 
+copy.hu.home.logisticsBadges = ["Orsz\u00e1gos h\u0171t\u0151s kisz\u00e1ll\u00edt\u00e1s", "Heti \u00fatvonaltervez\u00e9s", "Rugalmas partnerkiszolg\u00e1l\u00e1s"];
+copy.hu.home.logisticsStats = [
+  { label: "Lefedetts\u00e9g", value: "Magyarorsz\u00e1g", text: "Orsz\u00e1gos partnerkiszolg\u00e1l\u00e1s saj\u00e1t h\u0171t\u0151s flott\u00e1val." },
+  { label: "\u00dctemez\u00e9s", value: "Heti", text: "Heti \u00fctemezett \u00fatvonalak, kiemelt pontokon t\u00f6bbsz\u00f6ri fordul\u00f3val." },
+  { label: "H\u0171t\u0151l\u00e1nc", value: "Ellen\u0151rz\u00f6tt", text: "\u00c1tad\u00e1sig k\u00f6vetett h\u0171t\u0151l\u00e1nc \u00e9s egyeztetett kisz\u00e1ll\u00edt\u00e1si ritmus." },
+];
+
+copy.de.home.logisticsBadges = ["Gek\u00fchlte Zustellung landesweit", "W\u00f6chentliche Routenplanung", "Flexible Partnerbetreuung"];
+copy.de.home.logisticsStats = [
+  { label: "Abdeckung", value: "Ungarn", text: "Landesweite Partnerbelieferung mit eigener K\u00fchlflotte." },
+  { label: "Rhythmus", value: "W\u00f6chentlich", text: "Geplante Wochenrouten mit mehreren Stopps an priorisierten Punkten." },
+  { label: "K\u00fchlkette", value: "Kontrolliert", text: "\u00dcberwachte K\u00fchlkette und abgestimmtes Lieferfenster bis zur \u00dcbergabe." },
+];
 function getLang(value) { return supportedLanguages.includes(value) ? value : defaultLanguage; }
 function getTranslations(lang) { return copy[getLang(lang)]; }
 function getWholesaleCatalog(lang) { return productCatalog[getLang(lang)]; }

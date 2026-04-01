@@ -1,31 +1,5 @@
 <%- include('partials/header') %>
 
-<%
-  const logisticsBadges = t.home.logisticsBadges || (lang === 'de'
-    ? ['Landesweite K\u00fchlzustellung', 'W\u00f6chentliche Routenplanung', 'Flexible Partnerbelieferung']
-    : lang === 'en'
-      ? ['Nationwide refrigerated delivery', 'Weekly route planning', 'Flexible partner service']
-      : ['Orsz\u00e1gos h\u0171t\u0151s kisz\u00e1ll\u00edt\u00e1s', 'Heti \u00fatvonaltervez\u00e9s', 'Rugalmas partnerkiszolg\u00e1l\u00e1s']);
-
-  const logisticsStats = t.home.logisticsStats || (lang === 'de'
-    ? [
-        { label: 'Abdeckung', value: 'Ungarn', text: 'Landesweite Partnerbelieferung mit eigener K\u00fchlflotte.' },
-        { label: 'Taktung', value: 'W\u00f6chentlich', text: 'W\u00f6chentlich geplante Routen mit mehreren Fahrten an priorisierten Punkten.' },
-        { label: 'K\u00fchlkette', value: 'Kontrolliert', text: 'Durchgehend \u00fcberwachte K\u00fchlkette und abgestimmter Lieferrhythmus bis zur \u00dcbergabe.' },
-      ]
-    : lang === 'en'
-      ? [
-          { label: 'Coverage', value: 'Hungary', text: 'Nationwide partner service with our own refrigerated fleet.' },
-          { label: 'Routing', value: 'Weekly', text: 'Weekly scheduled routes with multiple rounds at priority points.' },
-          { label: 'Cold chain', value: 'Controlled', text: 'Tracked cold-chain handling and coordinated delivery rhythm until handover.' },
-        ]
-      : [
-          { label: 'Lefedetts\u00e9g', value: 'Magyarorsz\u00e1g', text: 'Orsz\u00e1gos partnerkiszolg\u00e1l\u00e1s saj\u00e1t h\u0171t\u0151s flott\u00e1val.' },
-          { label: '\u00dctemez\u00e9s', value: 'Heti', text: 'Heti \u00fctemezett \u00fatvonalak, kiemelt pontokon t\u00f6bbsz\u00f6ri fordul\u00f3val.' },
-          { label: 'H\u0171t\u0151l\u00e1nc', value: 'Ellen\u0151rz\u00f6tt', text: '\u00c1tad\u00e1sig k\u00f6vetett h\u0171t\u0151l\u00e1nc \u00e9s egyeztetett kisz\u00e1ll\u00edt\u00e1si ritmus.' },
-        ]);
-%>
-
 <section class="hero section-animate">
   <div class="container hero-grid">
     <div>
@@ -80,13 +54,13 @@
     </div>
 
     <div class="logistics-badges reveal-grid">
-      <% logisticsBadges.forEach((badge) => { %>
+      <% t.home.logisticsBadges.forEach((badge) => { %>
       <span class="logistics-badge" data-stagger><%= badge %></span>
       <% }) %>
     </div>
 
     <div class="logistics-stats reveal-grid">
-      <% logisticsStats.forEach((stat) => { %>
+      <% t.home.logisticsStats.forEach((stat) => { %>
       <article class="stat-card panel" data-stagger>
         <span class="stat-label"><%= stat.label %></span>
         <strong><%= stat.value %></strong>
@@ -101,7 +75,7 @@
         <div class="dashboard-glow dashboard-glow-b"></div>
         <%- include('partials/hungary-map') %>
 
-<div class="dashboard-panel" id="logisticsPanel">
+        <div class="dashboard-panel" id="logisticsPanel">
           <p class="logistics-panel-label"><%= t.home.logisticsPanelTitle %></p>
           <h3 id="logisticsPanelTitle"><%= activeRegion.title %></h3>
           <p id="logisticsPanelText"><%= activeRegion.text %></p>

@@ -1,4 +1,4 @@
-﻿const express = require("express");
+const express = require("express");
 const {
   insertSubmission,
   listSubmissions,
@@ -279,12 +279,14 @@ router.get("/admin/igenyek", basicAuth, async (req, res, next) => {
     const type = req.query.type || "all";
     const rows = await listSubmissions(type);
     const settings = await getNotificationSettings();
+    const diagnostics = await getDbDiagnostics();
 
     return res.render("admin", {
       title: "Admin - Beérkezett igények",
       rows,
       selectedType: type,
       settings,
+      diagnostics,
     });
   } catch (error) {
     return next(error);
