@@ -1,14 +1,20 @@
-const path = require("path");
+﻿const path = require("path");
 const fs = require("fs");
 
+function cleanEnv(value) {
+  if (typeof value !== "string") return "";
+  return value.trim().replace(/^['\"]|['\"]$/g, "");
+}
+
+const envAdapter = cleanEnv(process.env.DB_ADAPTER).toLowerCase();
 const connectionString =
-  process.env.DATABASE_URL ||
-  process.env.POSTGRES_URL ||
-  process.env.POSTGRES_PRISMA_URL ||
+  cleanEnv(process.env.DATABASE_URL) ||
+  cleanEnv(process.env.POSTGRES_URL) ||
+  cleanEnv(process.env.POSTGRES_PRISMA_URL) ||
   "";
 
 const adapter =
-  process.env.DB_ADAPTER ||
+  envAdapter ||
   (connectionString ? "postgres" : process.env.VERCEL ? "memory" : "sqlite");
 
 let sqlite;
@@ -355,8 +361,10 @@ async function updateSubmissionStatus(id, status) {
 async function getDbDiagnostics() {
   const diagnostics = {
     adapter,
+    envAdapter,
     configured: Boolean(connectionString) || adapter !== "postgres",
     connectionStringPresent: Boolean(connectionString),
+    connectionStringPreview: connectionString ? `${connectionString.slice(0, 24)}...` : "",
     initError: dbInitError ? dbInitError.message || String(dbInitError) : null,
     writableStore:
       adapter === "postgres" ? "persistent" : adapter === "sqlite" ? "local file" : "memory only",
