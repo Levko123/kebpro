@@ -617,3 +617,386 @@ a { color: inherit; text-decoration: none; }
 
 
 
+@media (max-width: 768px) {
+  .section {
+    padding: 3rem 0;
+  }
+
+  .hero {
+    padding: 3.2rem 0 2.6rem;
+  }
+
+  .page-hero {
+    padding: 2.6rem 0 1rem;
+  }
+
+  .header-main {
+    gap: 0.8rem;
+  }
+
+  .brand {
+    gap: 0.55rem;
+    min-width: 0;
+  }
+
+  .brand-logo {
+    width: 38px;
+    height: 38px;
+  }
+
+  .brand span {
+    font-size: 1rem;
+    line-height: 1.2;
+  }
+
+  .main-nav {
+    max-height: calc(100vh - 90px);
+    overflow-y: auto;
+  }
+
+  .nav-cluster,
+  .header-utilities {
+    width: 100%;
+    gap: 0.55rem;
+  }
+
+  .header-utilities {
+    justify-content: space-between;
+  }
+
+  .lang-switch {
+    flex-wrap: wrap;
+  }
+
+  .hero h1,
+  .page-hero h1 {
+    font-size: clamp(1.8rem, 9vw, 2.4rem);
+  }
+
+  .lead {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .hero-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .hero-actions .btn,
+  .product-category-nav .btn,
+  .admin-filters .btn,
+  .cta-strip-inner .btn {
+    width: 100%;
+  }
+
+  .panel,
+  .card,
+  .hero-card,
+  .service-item,
+  .stat-card,
+  .product-card {
+    padding: 1rem;
+  }
+
+  .cards,
+  .product-card-grid,
+  .admin-diagnostics-grid,
+  .footer-grid,
+  .grant-grid,
+  .logistics-stats,
+  .logistics-dashboard,
+  .quality-timeline-grid,
+  .hero-grid,
+  .contact-grid,
+  .grid-2 {
+    gap: 0.85rem;
+  }
+
+  .logistics-badges {
+    gap: 0.55rem;
+  }
+
+  .logistics-badge {
+    width: 100%;
+    justify-content: flex-start;
+    padding: 0.65rem 0.85rem;
+    font-size: 0.95rem;
+  }
+
+  .dashboard-map {
+    min-height: 0;
+    padding: 0.75rem;
+  }
+
+  .hungary-map-shell {
+    min-height: 0;
+    aspect-ratio: 1 / 1;
+  }
+
+  .hungary-map-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .dashboard-panel {
+    margin: 0.75rem 0 0;
+    padding: 0.9rem;
+    border-radius: 16px;
+  }
+
+  .dashboard-panel h3 {
+    font-size: 1.45rem;
+    line-height: 1.05;
+  }
+
+  .dashboard-panel p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .dashboard-side {
+    gap: 0.75rem;
+  }
+
+  .region-card {
+    gap: 0.7rem;
+    padding: 0.9rem;
+  }
+
+  .region-chip-index {
+    width: 36px;
+    height: 36px;
+    font-size: 0.9rem;
+  }
+
+  .region-card-copy strong {
+    font-size: 0.98rem;
+  }
+
+  .region-card-copy small {
+    font-size: 0.88rem;
+    line-height: 1.45;
+  }
+
+  .map-node {
+    width: 16px;
+    height: 16px;
+    border-width: 3px;
+  }
+
+  .map-node-origin {
+    width: 18px;
+    height: 18px;
+  }
+
+  .service-item {
+    grid-template-columns: 1fr;
+  }
+
+  .service-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .product-image-slot,
+  .product-slot-image,
+  .product-placeholder,
+  .product-placeholder-fallback {
+    min-height: 140px;
+    height: 140px;
+  }
+
+  .table-wrap {
+    margin-left: -0.15rem;
+    margin-right: -0.15rem;
+  }
+
+  .product-table,
+  .admin-table {
+    min-width: 720px;
+  }
+
+  .product-table th,
+  .product-table td,
+  .admin-table th,
+  .admin-table td {
+    padding: 0.6rem 0.55rem;
+    font-size: 0.9rem;
+  }
+
+  .inline-form {
+    align-items: stretch;
+  }
+
+  .inline-form .btn,
+  .compact-form .btn,
+  .status-form .btn {
+    width: 100%;
+  }
+
+  .status-form {
+    gap: 0.45rem;
+  }
+
+  .timeline-intro,
+  .timeline-step-card .timeline-content {
+    padding: 1rem;
+  }
+
+  .timeline-item,
+  .timeline-step-card {
+    grid-template-columns: 56px 1fr;
+    gap: 0.8rem;
+  }
+
+  .timeline-marker {
+    width: 52px;
+    min-height: 52px;
+    padding: 0.55rem 0.35rem;
+  }
+
+  .quality-article {
+    gap: 0.75rem;
+  }
+
+  .quality-copy-grid p,
+  .quality-steps-list li {
+    line-height: 1.55;
+  }
+
+  .footer-bottom {
+    font-size: 0.88rem;
+  }
+
+  .szechenyi-floating {
+    width: min(145px, 38vw);
+  }
+}
+
+@media (max-width: 560px) {
+  .container {
+    width: min(1120px, 94vw);
+  }
+
+  .site-header {
+    position: sticky;
+  }
+
+  .header-main {
+    grid-template-columns: 1fr auto;
+  }
+
+  .brand span {
+    font-size: 0.95rem;
+  }
+
+  .main-nav {
+    right: 3vw;
+    left: 3vw;
+    padding: 0.85rem;
+    gap: 0.85rem;
+  }
+
+  .nav-cluster > a,
+  .dropdown-toggle,
+  .cta-link {
+    width: 100%;
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  .lang-switch a {
+    min-width: 40px;
+    height: 40px;
+  }
+
+  .eyebrow {
+    font-size: 0.85rem;
+    padding: 0.32rem 0.65rem;
+  }
+
+  .hero-card,
+  .panel,
+  .card,
+  .service-item,
+  .stat-card,
+  .product-card {
+    border-radius: 16px;
+  }
+
+  .logistics-dashboard {
+    padding: 0.75rem;
+  }
+
+  .dashboard-map {
+    padding: 0.55rem;
+    border-radius: 18px;
+  }
+
+  .hungary-map-shell {
+    aspect-ratio: 0.98 / 1;
+  }
+
+  .dashboard-panel h3 {
+    font-size: 1.25rem;
+  }
+
+  .dashboard-panel p,
+  .stat-card p,
+  .region-card-copy small {
+    font-size: 0.92rem;
+  }
+
+  .contact-form input,
+  .contact-form textarea,
+  .status-select {
+    font-size: 16px;
+  }
+
+  .timeline::before {
+    left: 16px;
+  }
+
+  .timeline-item,
+  .timeline-step-card {
+    grid-template-columns: 44px 1fr;
+    gap: 0.7rem;
+  }
+
+  .timeline-marker {
+    width: 40px;
+    min-height: 40px;
+    border-radius: 14px;
+  }
+
+  .timeline-marker-number {
+    font-size: 0.82rem;
+  }
+
+  .timeline-marker-icon {
+    font-size: 0.68rem;
+  }
+
+  .timeline-step-topline {
+    gap: 0.35rem;
+  }
+
+  .timeline-step-topline strong {
+    font-size: 0.92rem;
+  }
+
+  .timeline-step-card .timeline-content h3 {
+    font-size: 0.96rem;
+    line-height: 1.6;
+  }
+
+  .site-footer {
+    padding-top: 1.6rem;
+  }
+
+  .szechenyi-floating {
+    width: min(120px, 34vw);
+  }
+}
