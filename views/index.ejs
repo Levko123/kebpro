@@ -75,7 +75,7 @@
         <div class="dashboard-glow dashboard-glow-b"></div>
         <%- include('partials/hungary-map') %>
 
-        <div class="dashboard-panel" id="logisticsPanel">
+        <div class="dashboard-panel <%= activeRegion.panelPosition || 'panel-bottom-right' %>" id="logisticsPanel">
           <p class="logistics-panel-label"><%= t.home.logisticsPanelTitle %></p>
           <h3 id="logisticsPanelTitle"><%= activeRegion.title %></h3>
           <p id="logisticsPanelText"><%= activeRegion.text %></p>
@@ -90,6 +90,7 @@
           data-region-title="<%= region.title %>"
           data-region-text="<%= region.text %>"
           data-region-key="<%= region.key %>"
+          data-panel-position="<%= region.panelPosition || 'panel-bottom-right' %>"
           data-stagger
         >
           <span class="region-chip-index">0<%= index + 1 %></span>

@@ -119,7 +119,36 @@ function getLang(value) { return supportedLanguages.includes(value) ? value : de
 function getTranslations(lang) { return copy[getLang(lang)]; }
 function getWholesaleCatalog(lang) { return productCatalog[getLang(lang)]; }
 function getGrantItems(lang) { return grantItems[getLang(lang)]; }
-function getLogisticsRegions(lang) { return logisticsRegions[getLang(lang)]; }
+const logisticsPanelPositions = {
+  west: "panel-bottom-right",
+  central: "panel-top-right",
+  north: "panel-bottom-left",
+  east: "panel-top-left",
+  south: "panel-top-right",
+  balaton: "panel-bottom-right",
+};
+
+const logisticsRegionExtras = {
+  hu: [
+    { key: "balaton", title: "Balaton és térsége", text: "Kiemelt szezonális és állandó útvonal, gyors partnerkiszolgálással a Balaton környezetében." },
+  ],
+  en: [
+    { key: "balaton", title: "Lake Balaton area", text: "Priority seasonal and permanent route with fast partner coverage around Lake Balaton." },
+  ],
+  de: [
+    { key: "balaton", title: "Balaton-Region", text: "Bevorzugte saisonale und dauerhafte Route mit schneller Partnerbelieferung rund um den Balaton." },
+  ],
+};
+
+function getLogisticsRegions(lang) {
+  const currentLang = getLang(lang);
+  const base = logisticsRegions[currentLang] || [];
+  const extra = logisticsRegionExtras[currentLang] || [];
+  return [...base, ...extra].map((region) => ({
+    ...region,
+    panelPosition: logisticsPanelPositions[region.key] || "panel-bottom-right",
+  }));
+}
 function buildLangUrl(pathname, lang, extraQuery = {}) {
   const params = new URLSearchParams();
   const currentLang = getLang(lang);

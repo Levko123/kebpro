@@ -67,6 +67,7 @@ const mapNodes = {
   north: document.querySelector(".map-node-north"),
   east: document.querySelector(".map-node-east"),
   south: document.querySelector(".map-node-south"),
+  balaton: document.querySelector(".map-node-balaton"),
 };
 
 const regionOverlays = {
@@ -83,6 +84,11 @@ if (regionChips.length > 0 && logisticsPanelTitle && logisticsPanelText) {
     chip.classList.add("active");
     logisticsPanelTitle.textContent = chip.dataset.regionTitle || "";
     logisticsPanelText.textContent = chip.dataset.regionText || "";
+
+    if (logisticsPanelTitle.parentElement) {
+      logisticsPanelTitle.parentElement.classList.remove("panel-top-left", "panel-top-right", "panel-bottom-left", "panel-bottom-right");
+      logisticsPanelTitle.parentElement.classList.add(chip.dataset.panelPosition || "panel-bottom-right");
+    }
 
     Object.values(mapNodes).forEach((node) => node?.classList.remove("emphasis", "is-active"));
     Object.values(regionOverlays).forEach((overlay) => overlay?.classList.remove("emphasis", "is-active"));
