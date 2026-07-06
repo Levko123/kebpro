@@ -13,6 +13,14 @@
           <a href="<%= withLang('/impresszum') %>"><%= t.footer.imprint %></a>
           <a href="<%= withLang('/belso-visszaeles-bejelentes') %>"><%= t.footer.whistleblowing %></a>
         </div>
+        <% if (t.footer.seoLinks && t.footer.seoLinks.length) { %>
+        <div>
+          <h4><%= t.footer.seoTitle %></h4>
+          <% t.footer.seoLinks.forEach((link) => { %>
+          <a href="<%= withLang(link.href) %>"><%= link.label %></a>
+          <% }) %>
+        </div>
+        <% } %>
         <div>
           <h4><%= t.footer.contact %></h4>
           <p><%= company?.address || '' %></p>

@@ -1,0 +1,68 @@
+<%- include('partials/header') %>
+
+<section class="page-hero section-animate">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="<%= withLang('/') %>"><%= t.nav.home %></a>
+      <span aria-hidden="true">/</span>
+      <a href="<%= withLang('/termekek') %>"><%= t.nav.products %></a>
+    </nav>
+    <p class="eyebrow"><%= landing.eyebrow %></p>
+    <h1><%= landing.title %></h1>
+    <p class="lead"><%= landing.lead %></p>
+    <div class="hero-actions">
+      <a href="<%= withLang('/ajanlatkeres') %>" class="btn btn-primary"><%= t.buttons.quote %></a>
+      <a href="<%= withLang('/termekek/horeca') %>" class="btn btn-secondary"><%= t.buttons.viewWholesale %></a>
+    </div>
+  </div>
+</section>
+
+<section class="section section-animate">
+  <div class="container landing-layout">
+    <article class="panel wide landing-content">
+      <% landing.sections.forEach((section) => { %>
+      <section class="landing-section">
+        <h2><%= section.title %></h2>
+        <% section.paragraphs.forEach((paragraph) => { %>
+        <p><%= paragraph %></p>
+        <% }) %>
+      </section>
+      <% }) %>
+    </article>
+
+    <aside class="panel landing-aside">
+      <h2><%= t.landing.benefitsTitle %></h2>
+      <ul class="landing-benefits">
+        <% landing.benefits.forEach((benefit) => { %>
+        <li><%= benefit %></li>
+        <% }) %>
+      </ul>
+      <a href="<%= withLang('/megrendeles') %>" class="btn btn-secondary"><%= t.buttons.order %></a>
+    </aside>
+  </div>
+</section>
+
+<section class="section alt section-animate">
+  <div class="container">
+    <div class="section-head">
+      <h2><%= t.landing.faqTitle %></h2>
+    </div>
+    <div class="faq-list">
+      <% landing.faq.forEach((item) => { %>
+      <details class="faq-item">
+        <summary class="faq-question"><%= item.q %></summary>
+        <p class="faq-answer"><%= item.a %></p>
+      </details>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<section class="section cta-strip section-animate">
+  <div class="container cta-strip-inner">
+    <h2><%= t.home.ctaTitle %></h2>
+    <a href="<%= withLang('/ajanlatkeres') %>" class="btn btn-primary"><%= t.buttons.quote %></a>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

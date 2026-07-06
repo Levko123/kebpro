@@ -143,6 +143,109 @@ const pageSeo = {
   },
 };
 
+function getSiteUrl() {
+  const configuredUrl = process.env.SITE_URL || process.env.BASE_URL || "";
+  return (/csirkegyros\.hu/i.test(configuredUrl) ? "https://kebpro.hu" : configuredUrl || "https://kebpro.hu").replace(/\/$/, "");
+}
+
+function buildLangPath(pathname, lang) {
+  if (!lang || lang === "hu") return pathname;
+  const separator = pathname.includes("?") ? "&" : "?";
+  return `${pathname}${separator}lang=${encodeURIComponent(lang)}`;
+}
+
+function buildAlternates(siteUrl, pathname) {
+  return [
+    { lang: "hu", href: siteUrl + buildLangPath(pathname, "hu") },
+    { lang: "en", href: siteUrl + buildLangPath(pathname, "en") },
+    { lang: "de", href: siteUrl + buildLangPath(pathname, "de") },
+    { lang: "x-default", href: siteUrl + pathname },
+  ];
+}
+
+function buildBaseSchema(siteUrl) {
+  const organizationId = `${siteUrl}/#organization`;
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": ["Organization", "LocalBusiness", "FoodEstablishment"],
+      "@id": organizationId,
+      name: "Halasi Kebpro Kft.",
+      url: siteUrl,
+      logo: `${siteUrl}/images/optimized/logo-170.png`,
+      image: `${siteUrl}/images/og-default.jpg`,
+      email: "info@kebpro.hu",
+      telephone: ["+36 70 451 5003", "+36 70 451 5002"],
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Szegedi út 8.",
+        postalCode: "6400",
+        addressLocality: "Kiskunhalas",
+        addressCountry: "HU",
+      },
+      foundingDate: "2004",
+      areaServed: "HU",
+      description: "Magyar tulajdonú gyros- és kebab hús gyártó cég országos hűtött kiszállítással HORECA partnereknek.",
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      url: siteUrl,
+      name: "Halasi Kebpro Kft.",
+      publisher: { "@id": organizationId },
+      inLanguage: ["hu", "en", "de"],
+    },
+  ];
+}
+
+function buildExtraSchema(siteUrl, pathname, overrides = {}) {
+  const schema = [];
+
+  if (overrides.breadcrumbs && overrides.breadcrumbs.length) {
+    schema.push({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: overrides.breadcrumbs.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: item.name,
+        item: siteUrl + item.path,
+      })),
+    });
+  }
+
+  if (overrides.faq && overrides.faq.length) {
+    schema.push({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: overrides.faq.map((item) => ({
+        "@type": "Question",
+        name: item.q,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.a,
+        },
+      })),
+    });
+  }
+
+  if (overrides.service) {
+    schema.push({
+      "@context": "https://schema.org",
+      "@type": "Service",
+      name: overrides.service.name,
+      description: overrides.service.description,
+      provider: { "@id": `${siteUrl}/#organization` },
+      areaServed: "HU",
+      serviceType: overrides.service.serviceType,
+      url: siteUrl + pathname,
+    });
+  }
+
+  return schema;
+}
+
 /**
  * Build seo object for a given page and language.
  * @param {string} pageKey - key from pageSeo (e.g. 'home', 'about')
@@ -150,16 +253,24 @@ const pageSeo = {
  * @param {string} canonicalPath - e.g. '/', '/rolunk'
  * @returns {{ title, description, canonical, ogImage }}
  */
-function buildPageSeo(pageKey, lang, canonicalPath) {
-  const configuredUrl = process.env.SITE_URL || process.env.BASE_URL || "";
-  const siteUrl = (/csirkegyros\.hu/i.test(configuredUrl) ? "https://kebpro.hu" : configuredUrl || "https://kebpro.hu").replace(/\/$/, "");
+function buildPageSeo(pageKey, lang, canonicalPath, overrides = {}) {
+  const siteUrl = getSiteUrl();
   const langData = pageSeo[lang] || pageSeo.hu;
   const data = langData[pageKey] || pageSeo.hu[pageKey] || {};
+  const canonicalUrl = siteUrl + buildLangPath(canonicalPath, lang);
+  const schema = [
+    ...buildBaseSchema(siteUrl),
+    ...buildExtraSchema(siteUrl, canonicalPath, overrides),
+    ...(overrides.schema || []),
+  ];
+
   return {
-    title: data.title || "Halasi Kebpro Kft.",
-    description: data.description || "",
-    canonical: siteUrl + canonicalPath,
+    title: overrides.title || data.title || "Halasi Kebpro Kft.",
+    description: overrides.description || data.description || "",
+    canonical: canonicalUrl,
+    alternates: buildAlternates(siteUrl, canonicalPath),
     ogImage: siteUrl + "/images/og-default.jpg",
+    schema,
   };
 }
 

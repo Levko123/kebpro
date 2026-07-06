@@ -17,6 +17,11 @@
     <% if (pageSeo && pageSeo.canonical) { %>
     <link rel="canonical" href="<%= pageSeo.canonical %>" />
     <% } %>
+    <% if (pageSeo && pageSeo.alternates) { %>
+      <% pageSeo.alternates.forEach((alternate) => { %>
+    <link rel="alternate" hreflang="<%= alternate.lang %>" href="<%= alternate.href %>" />
+      <% }) %>
+    <% } %>
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -25,6 +30,9 @@
     <meta property="og:description" content="<%= pageDescription %>" />
     <% if (pageSeo && pageSeo.canonical) { %><meta property="og:url" content="<%= pageSeo.canonical %>" /><% } %>
     <meta property="og:image" content="<%= pageOgImage %>" />
+    <% if (pageSeo && pageSeo.schema && pageSeo.schema.length) { %>
+    <script type="application/ld+json"><%- JSON.stringify(pageSeo.schema).replace(/</g, '\\u003c') %></script>
+    <% } %>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/images/favicon.png" />

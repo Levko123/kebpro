@@ -4,6 +4,7 @@ const crypto = require("crypto");
 const multer = require("multer");
 const rateLimit = require("express-rate-limit");
 const { buildPageSeo } = require("../utils/seo");
+const { getLandingPage, getLandingPageSlugs } = require("../utils/landingPages");
 const {
   insertSubmission,
   listSubmissions,
@@ -131,6 +132,7 @@ router.get("/sitemap.xml", (req, res) => {
     { loc: "/rolunk",                    priority: "0.8", changefreq: "monthly" },
     { loc: "/minoseg",                   priority: "0.8", changefreq: "monthly" },
     { loc: "/termekek/horeca", priority: "0.9", changefreq: "monthly" },
+    ...getLandingPageSlugs().map((slug) => ({ loc: `/${slug}`, priority: "0.85", changefreq: "monthly" })),
     { loc: "/termekek/kiskereskedelem",  priority: "0.6", changefreq: "monthly" },
     { loc: "/palyazatok",                priority: "0.5", changefreq: "monthly" },
     { loc: "/ajanlatkeres",              priority: "0.9", changefreq: "monthly" },
@@ -448,6 +450,32 @@ router.get("/termekek/kiskereskedelem", (req, res) => {
     title: `${res.locals.t.nav.products} - ${res.locals.t.nav.retail}`,
     seo: buildPageSeo("retail", res.locals.lang, "/termekek/kiskereskedelem"),
     categories: getRetailCatalog(res.locals.lang),
+  });
+});
+
+router.get("/:landingSlug", (req, res, next) => {
+  const landing = getLandingPage(req.params.landingSlug, res.locals.lang);
+  if (!landing) return next();
+
+  const path = `/${req.params.landingSlug}`;
+  return res.render("landing", {
+    title: landing.eyebrow,
+    landing,
+    seo: buildPageSeo("landing", res.locals.lang, path, {
+      title: landing.seoTitle,
+      description: landing.seoDescription,
+      breadcrumbs: [
+        { name: res.locals.t.nav.home, path: "/" },
+        { name: res.locals.t.nav.products, path: "/termekek" },
+        { name: landing.eyebrow, path },
+      ],
+      faq: landing.faq,
+      service: {
+        name: landing.title,
+        description: landing.lead,
+        serviceType: landing.serviceType,
+      },
+    }),
   });
 });
 
