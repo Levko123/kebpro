@@ -10,7 +10,7 @@ const pageSeo = {
     },
     about: {
       title: "Rólunk - Halasi Kebpro Kft. | Magyar kebab gyártó 2004 óta",
-      description: "A Halasi Kebpro Kft. 2004 óta gyárt minőségi gyros és kebab termékeket. Heti 14-15 tonna kapacitás, exportjog, 80+ alkalmazott.",
+      description: "A Halasi Kebpro Kft. 2004 óta gyárt minőségi gyros és kebab termékeket. Heti 14-15 tonna kapacitás, exportjog, 60+ alkalmazott.",
     },
     quality: {
       title: "Minőségbiztosítás - Halasi Kebpro Kft. | Ellenőrzött gyros és kebab gyártás",
@@ -56,7 +56,7 @@ const pageSeo = {
     },
     about: {
       title: "About us - Halasi Kebpro Kft. | Hungarian kebab producer since 2004",
-      description: "Halasi Kebpro Kft. has been producing quality gyros and kebab products since 2004. Weekly capacity 14-15 tonnes, export licence, 80+ employees.",
+      description: "Halasi Kebpro Kft. has been producing quality gyros and kebab products since 2004. Weekly capacity 14-15 tonnes, export licence, 60+ employees.",
     },
     quality: {
       title: "Quality assurance - Halasi Kebpro Kft. | Controlled production",
@@ -102,7 +102,7 @@ const pageSeo = {
     },
     about: {
       title: "Über uns - Halasi Kebpro Kft. | Ungarischer Kebabproduzent seit 2004",
-      description: "Die Halasi Kebpro Kft. produziert seit 2004 Gyros- und Kebabprodukte. Wöchentliche Kapazität 14-15 Tonnen, Exportlizenz, 80+ Mitarbeitende.",
+      description: "Die Halasi Kebpro Kft. produziert seit 2004 Gyros- und Kebabprodukte. Wöchentliche Kapazität 14-15 Tonnen, Exportlizenz, 60+ Mitarbeitende.",
     },
     quality: {
       title: "Qualitätssicherung - Halasi Kebpro Kft. | Kontrollierte Produktion",
@@ -152,7 +152,7 @@ const pageSeo = {
  */
 function buildPageSeo(pageKey, lang, canonicalPath) {
   const configuredUrl = process.env.SITE_URL || process.env.BASE_URL || "";
-  const siteUrl = (/kebpro\.hu/i.test(configuredUrl) ? "https://csirkegyros.hu" : configuredUrl || "https://csirkegyros.hu").replace(/\/$/, "");
+  const siteUrl = (/csirkegyros\.hu/i.test(configuredUrl) ? "https://kebpro.hu" : configuredUrl || "https://kebpro.hu").replace(/\/$/, "");
   const langData = pageSeo[lang] || pageSeo.hu;
   const data = langData[pageKey] || pageSeo.hu[pageKey] || {};
   return {

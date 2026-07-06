@@ -112,9 +112,9 @@ const careerLimiter = createLimiter({
 const LEGACY_REDIRECTS = {
   "/kezdolap":            "/",
   "/bemutatkozas":        "/rolunk",
-  "/termekek-es-gyartas": "/termekek/horeca",
-  "/logisztika":          "/rolunk",
-  "/referencia":          "/rolunk",
+  "/termekek-es-gyartas": "/termekek",
+  "/logisztika":          "/",
+  "/referencia":          "/minoseg",
   "/elerhetoseg":         "/kapcsolat",
 };
 Object.entries(LEGACY_REDIRECTS).forEach(([from, to]) => {
@@ -124,7 +124,7 @@ Object.entries(LEGACY_REDIRECTS).forEach(([from, to]) => {
 // ── Sitemap ──────────────────────────────────────────────────────────────────
 router.get("/sitemap.xml", (req, res) => {
   const configuredUrl = process.env.SITE_URL || process.env.BASE_URL || "";
-  const siteUrl = (/kebpro\.hu/i.test(configuredUrl) ? "https://csirkegyros.hu" : configuredUrl || "https://csirkegyros.hu").replace(/\/$/, "");
+  const siteUrl = (/csirkegyros\.hu/i.test(configuredUrl) ? "https://kebpro.hu" : configuredUrl || "https://kebpro.hu").replace(/\/$/, "");
   const today = new Date().toISOString().split("T")[0];
   const urls = [
     { loc: "/",                          priority: "1.0", changefreq: "weekly"  },

@@ -10,20 +10,17 @@ const { getLang, getTranslations, buildLangUrl, supportedLanguages } = require("
 
 const app = express();
 const dbReady = initDb();
-const PRIMARY_ORIGIN = "https://csirkegyros.hu";
+const PRIMARY_ORIGIN = "https://kebpro.hu";
 
 const DOMAIN_REDIRECTS = {
-  "/rolunk/bemutatkozas": "/rolunk",
-  "/rolunk/filozofia": "/rolunk",
-  "/rolunk/logisztika": "/rolunk",
-  "/minoseg": "/minoseg",
-  "/termekek/kebup": "/termekek/kiskereskedelem",
-  "/termekek/kebpro": "/termekek/horeca",
-  "/palyazat-1": "/palyazatok",
-  "/palyazat-2": "/palyazatok",
-  "/kapcsolat/elerhetoseg": "/kapcsolat",
-  "/kapcsolat/ajanlatkeres": "/ajanlatkeres",
-  "/kapcsolat/megrendeles": "/megrendeles",
+  "/kezdolap": "/",
+  "/bemutatkozas": "/rolunk",
+  "/termekek-es-gyartas": "/termekek",
+  "/logisztika": "/",
+  "/referencia": "/minoseg",
+  "/megrendeles": "/megrendeles",
+  "/ajanlatkeres": "/ajanlatkeres",
+  "/elerhetoseg": "/kapcsolat",
 };
 
 // Trust Vercel / reverse-proxy headers (needed for correct IP in rate limiting)
@@ -40,8 +37,7 @@ app.use((req, res, next) => {
     .replace(/:\d+$/, "");
 
   const shouldRedirect =
-    host === "kebpro.hu" ||
-    host === "www.kebpro.hu" ||
+    host === "csirkegyros.hu" ||
     host === "www.csirkegyros.hu";
 
   if (!shouldRedirect) return next();
