@@ -1,4 +1,4 @@
-const express = require("express");
+﻿const express = require("express");
 const path = require("path");
 const crypto = require("crypto");
 const multer = require("multer");
@@ -451,6 +451,10 @@ router.get("/termekek/kiskereskedelem", (req, res) => {
     seo: buildPageSeo("retail", res.locals.lang, "/termekek/kiskereskedelem"),
     categories: getRetailCatalog(res.locals.lang),
   });
+});
+
+router.get("/kebab-gyartas", (req, res) => {
+  res.redirect(301, res.locals.withLang("/gyros-gyartas"));
 });
 
 router.get("/:landingSlug", (req, res, next) => {
@@ -939,3 +943,4 @@ router.get("/belso-visszaeles-bejelentes", (req, res) => {
 });
 
 module.exports = router;
+
