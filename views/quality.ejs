@@ -59,7 +59,14 @@
           <% }) %>
         </div>
         <figure class="timeline-quality-photo">
-          <img src="/images/company/minoseg.png" alt="<%= t.quality.photoAlt || t.quality.timelineTitle %>" loading="lazy" decoding="async" />
+          <img
+            src="/images/optimized/company/minoseg-640.webp?v=<%= assetVersion || 'local' %>"
+            srcset="/images/optimized/company/minoseg-640.webp?v=<%= assetVersion || 'local' %> 640w, /images/optimized/company/minoseg-960.webp?v=<%= assetVersion || 'local' %> 960w"
+            sizes="(max-width: 900px) 100vw, 42vw"
+            alt="<%= t.quality.photoAlt || t.quality.timelineTitle %>"
+            loading="lazy"
+            decoding="async"
+          />
         </figure>
       </div>
 

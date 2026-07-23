@@ -357,6 +357,18 @@ if (faqToggle && faqList) {
 }
 
 document.querySelectorAll("[data-success-toast]").forEach((toast) => {
+  const successSection = toast.closest(".panel") || toast;
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  window.requestAnimationFrame(() => {
+    successSection.scrollIntoView({
+      behavior: prefersReducedMotion ? "auto" : "smooth",
+      block: "start",
+    });
+    toast.setAttribute("tabindex", "-1");
+    toast.focus({ preventScroll: true });
+  });
+
   window.setTimeout(() => {
     toast.classList.add("is-hiding");
     window.setTimeout(() => toast.remove(), 400);

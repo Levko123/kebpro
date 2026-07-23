@@ -18,7 +18,14 @@
         <% }) %>
       </div>
       <figure class="about-hero-photo panel">
-        <img src="/images/company/bemutatkozas.png" alt="<%= t.about.photoAlt || t.about.introTitle %>" loading="lazy" decoding="async" />
+        <img
+          src="/images/optimized/company/bemutatkozas-640.webp?v=<%= assetVersion || 'local' %>"
+          srcset="/images/optimized/company/bemutatkozas-640.webp?v=<%= assetVersion || 'local' %> 640w, /images/optimized/company/bemutatkozas-960.webp?v=<%= assetVersion || 'local' %> 960w"
+          sizes="(max-width: 760px) 100vw, 50vw"
+          alt="<%= t.about.photoAlt || t.about.introTitle %>"
+          loading="lazy"
+          decoding="async"
+        />
       </figure>
       <div class="about-stats-col">
         <% t.about.stats.forEach((stat) => { %>
