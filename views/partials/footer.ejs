@@ -34,7 +34,14 @@
           <p>Fax: <%= company.fax %></p>
           <% } %>
           <% if (company?.email) { %>
-          <a href="mailto:<%= company.email %>"><%= company.email %></a>
+          <p class="email-reveal-slot" aria-live="polite">
+            <button
+              type="button"
+              class="email-reveal"
+              data-email-reveal
+              data-email-error="<%= t.contact.emailRevealError %>"
+            ><%= t.contact.emailReveal %></button>
+          </p>
           <% } %>
         </div>
       </div>

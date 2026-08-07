@@ -1,0 +1,13 @@
+<%
+  const revealChannel = typeof emailChannel === 'string' ? emailChannel : 'general';
+  const revealLabel = typeof emailRevealLabel === 'string' ? emailRevealLabel : t.contact.emailReveal;
+%>
+<span class="email-reveal-slot" aria-live="polite">
+  <button
+    type="button"
+    class="email-reveal"
+    data-email-reveal
+    data-email-channel="<%= revealChannel %>"
+    data-email-error="<%= t.contact.emailRevealError %>"
+  ><%= revealLabel %></button>
+</span>

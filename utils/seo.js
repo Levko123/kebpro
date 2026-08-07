@@ -174,7 +174,6 @@ function buildBaseSchema(siteUrl) {
       url: siteUrl,
       logo: `${siteUrl}/images/optimized/logo-170.png`,
       image: `${siteUrl}/images/og-default.jpg`,
-      email: "info@kebpro.hu",
       telephone: ["+36 70 451 5003", "+36 70 451 5002"],
       address: {
         "@type": "PostalAddress",

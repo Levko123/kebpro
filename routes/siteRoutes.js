@@ -109,6 +109,12 @@ const careerLimiter = createLimiter({
   message: tooManyRequestsMessage,
 });
 
+const emailRevealLimiter = createLimiter({
+  windowMs: 15 * 60 * 1000,
+  limit: 20,
+  message: { error: "Az e-mail-cím most nem tölthető be." },
+});
+
 // ── Legacy URL 301 redirects (csirkegyros.hu old URLs) ──────────────────────
 const LEGACY_REDIRECTS = {
   "/kezdolap":            "/",
@@ -514,6 +520,24 @@ router.get("/kapcsolat", (req, res) => {
     title: res.locals.t.nav.contact,
     seo: buildPageSeo("contact", res.locals.lang, "/kapcsolat"),
   });
+});
+
+// Keep the address out of page HTML and only disclose it after an intentional click.
+router.post("/kapcsolati-email", emailRevealLimiter, (req, res) => {
+  res.set({
+    "Cache-Control": "no-store",
+    "X-Robots-Tag": "noindex, nofollow",
+  });
+  const channels = {
+    general: res.locals.company.email,
+    whistleblowing:
+      process.env.COMPANY_WHISTLEBLOWING_EMAIL || "belsovisszaelesbejelentes@kebpro.hu",
+  };
+  const channel = typeof req.body.channel === "string" ? req.body.channel : "general";
+  if (!Object.prototype.hasOwnProperty.call(channels, channel)) {
+    return res.status(404).json({ error: "Unknown e-mail channel." });
+  }
+  return res.json({ email: channels[channel] });
 });
 
 router.get("/ajanlatkeres", (req, res) => {

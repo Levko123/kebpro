@@ -667,6 +667,22 @@ a { color: inherit; text-decoration: none; }
 .contact-info-body p { font-size: 0.92rem; line-height: 1.55; }
 .contact-info-body a { color: var(--primary); text-decoration: none; font-weight: 600; transition: color 0.2s; }
 .contact-info-body a:hover { color: var(--accent); }
+.email-reveal {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--primary);
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  cursor: pointer;
+}
+.email-reveal:hover { color: var(--accent); }
+.email-reveal:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+.email-reveal:disabled { cursor: wait; opacity: 0.72; }
 .contact-fax { color: var(--muted); font-size: 0.85rem !important; margin-top: 0.2rem; }
 
 /* ── Contact map ── */
@@ -923,6 +939,8 @@ a { color: inherit; text-decoration: none; }
 }
 .footer-grid a:hover { color: #fff; }
 .footer-grid a:hover::after { width: 100%; }
+.site-footer .email-reveal { color: inherit; font-weight: inherit; }
+.site-footer .email-reveal:hover { color: #fff; }
 
 .footer-bottom {
   border-top: 1px solid rgba(255, 255, 255, 0.1);

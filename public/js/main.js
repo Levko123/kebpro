@@ -1,6 +1,59 @@
 const menuToggle = document.getElementById("menuToggle");
 const mainNav = document.getElementById("mainNav");
 
+/* Reveal the company e-mail only after a real user interaction. */
+const emailRevealButtons = [...document.querySelectorAll("[data-email-reveal]")];
+if (emailRevealButtons.length > 0) {
+  const emailRequests = new Map();
+
+  const requestEmail = (channel) => {
+    if (!emailRequests.has(channel)) {
+      const request = fetch("/kapcsolati-email", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ channel }),
+      }).then(async (response) => {
+        if (!response.ok) throw new Error("E-mail reveal failed");
+        const data = await response.json();
+        if (!data.email || !data.email.includes("@")) throw new Error("Invalid e-mail response");
+        return data.email;
+      });
+      emailRequests.set(channel, request);
+    }
+    return emailRequests.get(channel);
+  };
+
+  emailRevealButtons.forEach((button) => {
+    button.addEventListener("click", async () => {
+      const channel = button.dataset.emailChannel || "general";
+      const matchingButtons = emailRevealButtons.filter(
+        (item) => (item.dataset.emailChannel || "general") === channel
+      );
+      matchingButtons.forEach((item) => { item.disabled = true; });
+      try {
+        const email = await requestEmail(channel);
+        matchingButtons.forEach((item) => {
+          if (!item.isConnected) return;
+          const link = document.createElement("a");
+          link.href = `mailto:${email}`;
+          link.textContent = email;
+          item.replaceWith(link);
+        });
+      } catch (_) {
+        emailRequests.delete(channel);
+        matchingButtons.forEach((item) => {
+          if (!item.isConnected) return;
+          item.disabled = false;
+          item.textContent = item.dataset.emailError;
+        });
+      }
+    });
+  });
+}
+
 const deleteForms = document.querySelectorAll("form[data-confirm-delete]");
 if (deleteForms.length > 0) {
   const modal = document.createElement("div");
