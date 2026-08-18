@@ -1,6 +1,8 @@
 require("dotenv").config();
 
 const express = require("express");
+const crypto = require("crypto");
+const fs = require("fs");
 const path = require("path");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
@@ -11,6 +13,36 @@ const { getLang, getTranslations, buildLangUrl, supportedLanguages } = require("
 const app = express();
 const dbReady = initDb();
 const PRIMARY_ORIGIN = "https://kebpro.hu";
+
+function buildLocalAssetVersion(directory) {
+  const hash = crypto.createHash("sha256");
+
+  const walk = (currentDirectory) => {
+    const entries = fs.readdirSync(currentDirectory, { withFileTypes: true })
+      .sort((a, b) => a.name.localeCompare(b.name));
+
+    entries.forEach((entry) => {
+      const absolutePath = path.join(currentDirectory, entry.name);
+      if (entry.isDirectory()) {
+        walk(absolutePath);
+        return;
+      }
+
+      const stats = fs.statSync(absolutePath);
+      const relativePath = path.relative(directory, absolutePath).replace(/\\/g, "/");
+      hash.update(`${relativePath}:${stats.size}:${Math.trunc(stats.mtimeMs)};`);
+    });
+  };
+
+  walk(directory);
+  return `local-${hash.digest("hex").slice(0, 12)}`;
+}
+
+const ASSET_VERSION =
+  process.env.ASSET_VERSION ||
+  process.env.VERCEL_GIT_COMMIT_SHA ||
+  process.env.RAILWAY_GIT_COMMIT_SHA ||
+  buildLocalAssetVersion(path.join(__dirname, "public"));
 
 const DOMAIN_REDIRECTS = {
   "/kezdolap": "/",
@@ -120,11 +152,7 @@ app.use(async (req, res, next) => {
     res.locals.buildLangUrl = (pathname, targetLang, extraQuery = {}) =>
       buildLangUrl(pathname, targetLang, extraQuery);
     res.locals.currentPath = req.path;
-    res.locals.assetVersion =
-      process.env.ASSET_VERSION ||
-      process.env.VERCEL_GIT_COMMIT_SHA ||
-      process.env.RAILWAY_GIT_COMMIT_SHA ||
-      "local";
+    res.locals.assetVersion = ASSET_VERSION;
     res.locals.company = {
       name: process.env.COMPANY_NAME || "Halasi Kebpro Kft.",
       phone: process.env.COMPANY_PHONE || "+36 70 451 5003",
