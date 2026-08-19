@@ -173,7 +173,7 @@ function buildBaseSchema(siteUrl) {
       name: "Halasi Kebpro Kft.",
       url: siteUrl,
       logo: `${siteUrl}/images/optimized/logo-170.png`,
-      image: `${siteUrl}/images/og-default.jpg`,
+      image: `${siteUrl}/images/og-kebpro-2026-v6.png`,
       telephone: ["+36 70 451 5003", "+36 70 451 5002"],
       address: {
         "@type": "PostalAddress",
@@ -268,7 +268,7 @@ function buildPageSeo(pageKey, lang, canonicalPath, overrides = {}) {
     description: overrides.description || data.description || "",
     canonical: canonicalUrl,
     alternates: buildAlternates(siteUrl, canonicalPath),
-    ogImage: siteUrl + "/images/og-default.jpg",
+    ogImage: siteUrl + "/images/og-kebpro-2026-v6.png",
     schema,
   };
 }
